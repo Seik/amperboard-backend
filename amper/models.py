@@ -10,7 +10,7 @@ class Item(models.Model):
     consumption = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.name
+        return "{} - {}".format(self.name, self.consumption)
 
 
 @python_2_unicode_compatible
