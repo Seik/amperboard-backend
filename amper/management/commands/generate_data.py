@@ -34,10 +34,15 @@ class Command(BaseCommand):
             for i in range(500):
                 date = random_datetime(today - one_day, today + one_day)
 
-                CapacityHour.objects.create(
-                    hour=date,
-                    capacity=randrange(0, 4000)
-                )
+                try:
+
+                    CapacityHour.objects.create(
+                        hour=date,
+                        capacity=randrange(0, 4000)
+                    )
+
+                except Exception as e:
+                    print e
 
             reports = []
             all_reports = Report.objects.all()
