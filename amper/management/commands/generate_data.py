@@ -22,7 +22,7 @@ class Command(BaseCommand):
                 item = Item.objects.all()[randrange(1, items_size)]
 
                 date = random_datetime(today - one_day, today + one_day)
-                date = time_round(date)
+                date = time_round(date, 60*60)
 
                 Report.objects.create(
                     item=item,

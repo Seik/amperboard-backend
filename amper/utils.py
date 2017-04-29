@@ -46,6 +46,9 @@ def random_datetime(start, end):
     return datetime.datetime.fromtimestamp(ptime)
 
 
-def time_round(dt):
-    a, b = divmod(round(dt.minute, -1), 60)
-    return '%i:%02i' % ((dt.hour + a) % 24, b)
+def time_round(dt=None, roundTo=60):
+    if dt is None:
+        dt = datetime.datetime.now()
+    seconds = (dt.replace(tzinfo=None) - dt.min).seconds
+    rounding = (seconds + roundTo / 2) // roundTo * roundTo
+    return dt + datetime.timedelta(0, rounding - seconds, -dt.microsecond)
