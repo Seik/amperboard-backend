@@ -32,14 +32,15 @@ class RequestViewSet(viewsets.ModelViewSet):
                 "id": report.pk,
                 "item": report.item.name,
                 "consumption": report.item.consumption,
-                "time": report.start_time.time()
+                "time": report.start_time
             })
 
         return Response(json_response)
 
     @list_route()
     def pending_tasks(self, request):
-        pending_objects = self.queryset.filter(start_time__gte=timezone.now() - timedelta(1))
+        pending_objects = self.queryset.filter(
+            start_time__gte=timezone.now() - timedelta(1))
 
         json_response = []
 
@@ -50,7 +51,7 @@ class RequestViewSet(viewsets.ModelViewSet):
                 json_response.append({
                     "id": report.pk,
                     "item": ItemSerializer(report.item).data,
-                    "date": report.start_time.time()
+                    "date": report.start_time
                 })
 
         return Response(json_response)

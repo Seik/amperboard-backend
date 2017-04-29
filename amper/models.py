@@ -26,7 +26,7 @@ class Report(models.Model):
 
 @python_2_unicode_compatible
 class CapacityHour(models.Model):
-    hour = models.TimeField()
+    hour = models.DateTimeField()
     capacity = models.PositiveIntegerField()
 
     def __str__(self):
@@ -45,7 +45,7 @@ class Day(models.Model):
 
 @python_2_unicode_compatible
 class WeatherData(models.Model):
-    hour = models.TimeField()
+    hour = models.PositiveIntegerField()
     humidity = models.PositiveIntegerField()
     wind_speed = models.PositiveIntegerField()
 
