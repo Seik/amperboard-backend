@@ -13,10 +13,6 @@ class Item(models.Model):
         return self.name
 
 
-class NasaReport(models.Model):
-    date = models.DateField()
-
-
 class Report(models.Model):
     item = models.ForeignKey("Item")
     start_time = models.TimeField()
