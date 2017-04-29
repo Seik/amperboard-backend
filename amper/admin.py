@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from amper.models import Item
+
+admin.site.register(Item, admin.ModelAdmin)
