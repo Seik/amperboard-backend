@@ -4,12 +4,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from amper.viewsets import ItemViewSet, PastDayViewSet
+from amper.viewsets import ItemViewSet, RequestViewSet
 
 router = DefaultRouter()
 
 router.register(r'items', ItemViewSet, 'items')
-router.register(r'past-day', PastDayViewSet, 'past-day')
+router.register(r'reports', RequestViewSet, 'reports')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

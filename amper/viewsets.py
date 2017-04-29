@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from datetime import datetime, timedelta
 
 from rest_framework import viewsets
+from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
 from amper.models import Item, Report
@@ -14,9 +15,13 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
 
 
-class PastDayViewSet(viewsets.ViewSet):
-    def list(self, request):
-        reports = Report.objects.filter(start_time__gte=datetime.now() - timedelta(1))
+class RequestViewSet(viewsets.ModelViewSet):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
+
+    @list_route()
+    def past_day(self, request):
+        reports = self.queryset.filter(start_time__gte=datetime.now() - timedelta(1))
 
         json_response = []
 
@@ -27,5 +32,21 @@ class PastDayViewSet(viewsets.ViewSet):
                 "consumption": report.item.consumption,
                 "time": report.start_time.time()
             })
+
+        return Response(json_response)
+
+    @list_route()
+    def pending_tasks(self, request):
+        pending_objects = self.queryset.filter(start_time__gte=datetime.now() - timedelta(1))
+
+        json_response = []
+
+        for report in pending_objects:
+
+            if not report.is_completed:
+                json_response.append({
+                    "id": report.pk,
+                    "item": report.item.name,
+                })
 
         return Response(json_response)
