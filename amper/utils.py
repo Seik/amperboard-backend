@@ -1,3 +1,8 @@
+import time
+
+import random
+
+import datetime
 from rest_framework import serializers
 from rest_framework.fields import empty
 
@@ -26,3 +31,18 @@ class RelationModelSerializer(serializers.ModelSerializer):
             except:
                 raise serializers.ValidationError({model_pk: model_pk + ' is not valid'})
         return is_ok, data
+
+
+def date_to_timestamp(d):
+    return int(time.mktime(d.timetuple()))
+
+
+def random_date(start, end):
+    """Get a random date between two dates"""
+
+    stime = date_to_timestamp(start)
+    etime = date_to_timestamp(end)
+
+    ptime = stime + random.random() * (etime - stime)
+
+    return datetime.date.fromtimestamp(ptime)
