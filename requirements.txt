@@ -12,6 +12,7 @@ gunicorn==19.6.0
 Markdown==2.6.8
 packaging==16.8
 psycopg2==2.6.2
+pyowm==2.6.1
 pyparsing==2.2.0
 python-dateutil==2.6.0
 pytz==2017.2

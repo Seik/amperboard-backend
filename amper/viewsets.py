@@ -45,10 +45,11 @@ class RequestViewSet(viewsets.ModelViewSet):
         for report in pending_objects:
             now_ts = time.mktime(datetime.now().timetuple())
             task_ts = time.mktime(report.start_time.timetuple()) + (report.duration * 60)
-            if task_ts > now_ts:
+            if task_ts < now_ts:
                 json_response.append({
                     "id": report.pk,
-                    "item": report.item.name,
+                    "item": report.item,
+                    "date": report.start_time.time()
                 })
 
         return Response(json_response)
