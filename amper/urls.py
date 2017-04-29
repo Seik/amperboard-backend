@@ -4,12 +4,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from amper.viewsets import ItemViewSet, RequestViewSet
+from amper.viewsets import ItemViewSet, RequestViewSet, UserConfigViewSet
 
 router = DefaultRouter()
 
 router.register(r'items', ItemViewSet, 'items')
 router.register(r'reports', RequestViewSet, 'reports')
+router.register(r'user-config', UserConfigViewSet, 'user-config')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

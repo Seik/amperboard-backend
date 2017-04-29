@@ -8,8 +8,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
-from amper.models import Item, Report
-from amper.serializers import ItemSerializer, ReportSerializer
+from amper.models import Item, Report, UserConfig
+from amper.serializers import ItemSerializer, ReportSerializer, UserConfigSerializer
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -54,3 +54,8 @@ class RequestViewSet(viewsets.ModelViewSet):
                 })
 
         return Response(json_response)
+
+
+class UserConfigViewSet(viewsets.ModelViewSet):
+    serializer_class = UserConfigSerializer
+    queryset = UserConfig.objects.all()
