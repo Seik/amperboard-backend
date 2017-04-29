@@ -13,6 +13,7 @@ class Item(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class Report(models.Model):
     item = models.ForeignKey("Item")
     start_time = models.TimeField()
@@ -20,13 +21,24 @@ class Report(models.Model):
     consumption = models.PositiveIntegerField(blank=True, null=True)
     completed = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "{} - {} - {}".format(self.item, self.consumption, self.completed)
 
+
+@python_2_unicode_compatible
 class CapacityHour(models.Model):
     hour = models.TimeField()
     capacity = models.PositiveIntegerField()
 
+    def __str__(self):
+        return "{} - {}".format(self.hour, self.capacity)
 
+
+@python_2_unicode_compatible
 class Day(models.Model):
     date = models.DateField(unique=True)
     reports = models.ManyToManyField("Report")
     capacity_hours = models.ManyToManyField("CapacityHour")
+
+    def __str__(self):
+        return self.date
