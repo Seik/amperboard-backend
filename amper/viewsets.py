@@ -17,5 +17,15 @@ class ItemViewSet(viewsets.ModelViewSet):
 class PastDayViewSet(viewsets.ViewSet):
     def list(self, request):
         reports = Report.objects.filter(start_time__gte=datetime.now() - timedelta(1))
-        serializer_data = ReportSerializer(reports, many=True)
-        return Response(serializer_data.data)
+
+        json_response = []
+
+        for report in reports:
+            json_response.append({
+                "id": report.pk,
+                "item": report.item.name,
+                "consumption": report.item.consumption,
+                "time": report.start_time.time()
+            })
+
+        return Response(json_response)
