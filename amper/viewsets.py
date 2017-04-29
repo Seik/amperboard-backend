@@ -63,7 +63,8 @@ class CapacityHourViewSet(viewsets.ModelViewSet):
 
     @list_route()
     def past_day(self, request):
-        queryset = self.queryset.filter(hour__gte=timezone.now() - timedelta(hours=24))
+        queryset = self.queryset.filter(hour__gte=timezone.now() - timedelta(hours=24)) | self.queryset.filter(
+            hour__lte=timezone.now())
         serializer_data = CapacityHourSerializer(queryset, many=True)
         return Response(serializer_data.data)
 
