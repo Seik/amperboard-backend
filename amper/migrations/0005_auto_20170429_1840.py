@@ -12,9 +12,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        '''
         migrations.AlterField(
             model_name='capacityhour',
             name='hour',
             field=models.DateTimeField(),
         ),
+        '''
     ]
