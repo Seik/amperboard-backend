@@ -48,7 +48,7 @@ class RequestViewSet(viewsets.ModelViewSet):
             if task_ts < now_ts:
                 json_response.append({
                     "id": report.pk,
-                    "item": report.item,
+                    "item": ItemSerializer(report.item).data,
                     "date": report.start_time.time()
                 })
 
