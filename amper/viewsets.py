@@ -8,8 +8,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
-from amper.models import Item, Report, UserConfig
-from amper.serializers import ItemSerializer, ReportSerializer, UserConfigSerializer
+from amper.models import Item, Report, UserConfig, Day
+from amper.serializers import ItemSerializer, ReportSerializer, UserConfigSerializer, DaySerializer
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -39,8 +39,7 @@ class RequestViewSet(viewsets.ModelViewSet):
 
     @list_route()
     def pending_tasks(self, request):
-        pending_objects = self.queryset.filter(
-            start_time__gte=timezone.now() - timedelta(1))
+        pending_objects = self.queryset.filter(start_time__gte=timezone.now() - timedelta(1))
 
         json_response = []
 
@@ -55,6 +54,13 @@ class RequestViewSet(viewsets.ModelViewSet):
                 })
 
         return Response(json_response)
+
+
+class DayViewSet(viewsets.ModelViewSet):
+    serializer_class = DaySerializer
+
+    def get_queryset(self):
+        return Day.objects.filter(date__gte=timezone.now() - timedelta(7))
 
 
 class UserConfigViewSet(viewsets.ModelViewSet):

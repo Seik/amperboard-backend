@@ -36,11 +36,11 @@ class CapacityHour(models.Model):
 @python_2_unicode_compatible
 class Day(models.Model):
     date = models.DateField(unique=True)
-    reports = models.ManyToManyField("Report")
+    reports = models.ManyToManyField("Report", blank=True)
     capacity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.date
+        return str(self.date)
 
 
 @python_2_unicode_compatible

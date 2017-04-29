@@ -31,7 +31,7 @@ class CapacityHourSerializer(utils.RelationModelSerializer):
 class DaySerializer(utils.RelationModelSerializer):
     class Meta:
         model = Day
-        fields = ("id", "reports", "capacity_hours")
+        fields = ("id", "reports", "capacity")
 
 
 class UserConfigSerializer(serializers.ModelSerializer):

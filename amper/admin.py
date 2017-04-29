@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 
@@ -10,11 +12,11 @@ class ItemAdmin(ImportExportModelAdmin):
     resource_class = ItemResource
 
 
-@admin.register(UserConfig)
-class UserConfigAdmin(admin.ModelAdmin):
-    pass
+@admin.register(Day)
+class DayAdmin(admin.ModelAdmin):
+    filter_horizontal = ("reports",)
 
 
 admin.site.register(Report, admin.ModelAdmin)
 admin.site.register(CapacityHour, admin.ModelAdmin)
-admin.site.register(Day, admin.ModelAdmin)
+admin.site.register(UserConfig, admin.ModelAdmin)
