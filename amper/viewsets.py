@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 
-from datetime import datetime, timedelta
 import time
+from datetime import timedelta
 
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -22,7 +23,7 @@ class RequestViewSet(viewsets.ModelViewSet):
 
     @list_route()
     def past_day(self, request):
-        reports = self.queryset.filter(start_time__gte=datetime.now() - timedelta(1))
+        reports = self.queryset.filter(start_time__gte=timezone.now() - timedelta(1))
 
         json_response = []
 
@@ -38,12 +39,12 @@ class RequestViewSet(viewsets.ModelViewSet):
 
     @list_route()
     def pending_tasks(self, request):
-        pending_objects = self.queryset.filter(start_time__gte=datetime.now() - timedelta(1))
+        pending_objects = self.queryset.filter(start_time__gte=timezone.now() - timedelta(1))
 
         json_response = []
 
         for report in pending_objects:
-            now_ts = time.mktime(datetime.now().timetuple())
+            now_ts = time.mktime(timezone.now().timetuple())
             task_ts = time.mktime(report.start_time.timetuple()) + (report.duration * 60)
             if task_ts < now_ts:
                 json_response.append({
