@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'import_export',
     'corsheaders',
+    'django_crontab',
     'amper',
 ]
 

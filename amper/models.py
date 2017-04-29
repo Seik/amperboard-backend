@@ -19,10 +19,9 @@ class Report(models.Model):
     start_time = models.DateTimeField()
     duration = models.PositiveIntegerField(help_text="in minutes")
     consumption = models.PositiveIntegerField(blank=True, null=True)
-    is_completed = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{} - {} - {}".format(self.item, self.consumption, self.completed)
+        return "{} - {}".format(self.item, self.consumption)
 
 
 @python_2_unicode_compatible

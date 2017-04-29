@@ -15,7 +15,7 @@ class ReportSerializer(utils.RelationModelSerializer):
 
     class Meta:
         model = Report
-        fields = ("id", "item", "start_time", "duration", "consumption", "completed")
+        fields = ("id", "item", "start_time", "duration", "consumption")
 
 
 class CapacityHourSerializer(utils.RelationModelSerializer):

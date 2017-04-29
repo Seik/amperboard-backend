@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from datetime import datetime, timedelta
+import time
 
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
@@ -42,8 +43,9 @@ class RequestViewSet(viewsets.ModelViewSet):
         json_response = []
 
         for report in pending_objects:
-
-            if not report.is_completed:
+            now_ts = time.mktime(datetime.now().timetuple())
+            task_ts = time.mktime(report.start_time.timetuple()) + (report.duration * 60)
+            if task_ts > now_ts:
                 json_response.append({
                     "id": report.pk,
                     "item": report.item.name,
