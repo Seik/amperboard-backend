@@ -58,9 +58,13 @@ class RequestViewSet(viewsets.ModelViewSet):
 
 class DayViewSet(viewsets.ModelViewSet):
     serializer_class = DaySerializer
+    queryset = Day.objects.all()
 
-    def get_queryset(self):
-        return Day.objects.filter(date__gte=timezone.now() - timedelta(7))
+    @list_route()
+    def week(self, request):
+        queryset = self.queryset.filter(date__gte=timezone.now() - timedelta(7))
+        serializer_data = DaySerializer(queryset, many=True)
+        return Response(serializer_data.data)
 
 
 class UserConfigViewSet(viewsets.ModelViewSet):
