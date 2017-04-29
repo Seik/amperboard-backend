@@ -17,9 +17,4 @@ class Migration(migrations.Migration):
             name='hour',
             field=models.DateTimeField(),
         ),
-        migrations.AlterField(
-            model_name='weatherdata',
-            name='hour',
-            field=models.PositiveIntegerField(),
-        ),
     ]

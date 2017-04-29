@@ -43,16 +43,6 @@ class Day(models.Model):
         return str(self.date)
 
 
-@python_2_unicode_compatible
-class WeatherData(models.Model):
-    hour = models.PositiveIntegerField()
-    humidity = models.PositiveIntegerField()
-    wind_speed = models.PositiveIntegerField()
-
-    def __str__(self):
-        return "{} {} {}".format(self.hour, self.humidity, self.wind_speed)
-
-
 class UserConfig(models.Model):
     latitude = models.IntegerField()
     azimut = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
