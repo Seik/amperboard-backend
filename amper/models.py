@@ -37,7 +37,7 @@ class CapacityHour(models.Model):
 class Day(models.Model):
     date = models.DateField(unique=True)
     reports = models.ManyToManyField("Report")
-    capacity_hours = models.ManyToManyField("CapacityHour")
+    capacity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.date
