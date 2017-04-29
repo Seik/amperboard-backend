@@ -3,6 +3,7 @@ diff-match-patch==20121119
 dj-config-url==0.1.1
 dj-database-url==0.4.1
 Django==1.10.4
+django-cors-headers==2.0.2
 django-filter==1.0.2
 django-import-export==0.5.1
 djangorestframework==3.6.2

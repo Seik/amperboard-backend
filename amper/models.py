@@ -16,7 +16,7 @@ class Item(models.Model):
 @python_2_unicode_compatible
 class Report(models.Model):
     item = models.ForeignKey("Item")
-    start_time = models.TimeField()
+    start_time = models.DateTimeField()
     duration = models.PositiveIntegerField(help_text="in minutes")
     consumption = models.PositiveIntegerField(blank=True, null=True)
     completed = models.BooleanField(default=False)
