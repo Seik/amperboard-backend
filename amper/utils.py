@@ -37,12 +37,11 @@ def date_to_timestamp(d):
     return int(time.mktime(d.timetuple()))
 
 
-def random_date(start, end):
-    """Get a random date between two dates"""
+def random_datetime(start, end):
 
     stime = date_to_timestamp(start)
     etime = date_to_timestamp(end)
 
     ptime = stime + random.random() * (etime - stime)
 
-    return datetime.date.fromtimestamp(ptime)
+    return datetime.datetime.fromtimestamp(ptime)

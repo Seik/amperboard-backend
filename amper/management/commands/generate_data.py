@@ -3,7 +3,7 @@ from random import randrange
 from datetime import timedelta
 from django.utils import timezone
 
-from amper.utils import random_date
+from amper.utils import random_datetime
 
 from django.core.management.base import BaseCommand
 
@@ -21,7 +21,7 @@ class Command(BaseCommand):
             for i in range(500):
                 item = Item.objects.all()[randrange(1, items_size)]
 
-                date = random_date(today - one_day, today + one_day)
+                date = random_datetime(today - one_day, today + one_day)
 
                 Report.objects.create(
                     item=item,
@@ -31,7 +31,7 @@ class Command(BaseCommand):
                 )
 
             for i in range(500):
-                date = random_date(today - one_day, today + one_day)
+                date = random_datetime(today - one_day, today + one_day)
 
                 CapacityHour.objects.create(
                     hour=date,
@@ -44,12 +44,16 @@ class Command(BaseCommand):
             for j in range(10):
                 reports.append(all_reports[randrange(1, all_reports.count())])
 
-            day = Day.objects.create(
-                date=date,
-                capacity=randrange(1, 300)
-            )
+                date = random_datetime(today - one_day, today + one_day)
 
-            day.reports = reports
-            day.save()
+                day = Day.objects.create(
+                    date=date,
+                    capacity=randrange(1, 300)
+                )
+
+                day.reports = reports
+                day.save()
+
+                print date
         except Exception as e:
             print e
