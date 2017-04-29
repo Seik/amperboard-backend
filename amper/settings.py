@@ -1,13 +1,4 @@
-"""
-Django settings for amper project on Heroku. For more info, see:
-https://github.com/heroku/heroku-django-template
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.10/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.10/ref/settings/
-"""
+from __future__ import unicode_literals
 
 import os
 import dj_database_url
@@ -119,7 +110,7 @@ CORS_ORIGIN_WHITELIST = (
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Madrid'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
