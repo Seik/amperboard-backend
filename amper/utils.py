@@ -1,5 +1,5 @@
 import time
-
+from datetime import timedelta
 import random
 
 import datetime
@@ -46,9 +46,11 @@ def random_datetime(start, end):
     return datetime.datetime.fromtimestamp(ptime)
 
 
-def time_round(dt=None, roundTo=60):
-    if dt is None:
-        dt = datetime.datetime.now()
-    seconds = (dt.replace(tzinfo=None) - dt.min).seconds
-    rounding = (seconds + roundTo / 2) // roundTo * roundTo
-    return dt + datetime.timedelta(0, rounding - seconds, -dt.microsecond)
+def time_round(dt):
+    if dt.minute < 30:
+        return datetime.datetime(year=dt.year, month=dt.month, day=dt.day,
+                                 hour=dt.hour)
+    else:
+        hour = (dt.hour + 1) if dt.hour < 23 else 0
+        return datetime.datetime(year=dt.year, month=dt.month, day=dt.day,
+                                 hour=hour)
