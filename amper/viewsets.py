@@ -8,8 +8,9 @@ from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
-from amper.models import Item, Report, UserConfig, Day
-from amper.serializers import ItemSerializer, ReportSerializer, UserConfigSerializer, DaySerializer
+from amper.models import Item, Report, UserConfig, Day, CapacityHour
+from amper.serializers import ItemSerializer, ReportSerializer, UserConfigSerializer, DaySerializer, \
+    CapacityHourSerializer
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -54,6 +55,17 @@ class RequestViewSet(viewsets.ModelViewSet):
                 })
 
         return Response(json_response)
+
+
+class CapacityHourViewSet(viewsets.ModelViewSet):
+    serializer_class = CapacityHourSerializer
+    queryset = CapacityHour.objects.all()
+
+    @list_route()
+    def past_day(self, request):
+        queryset = self.queryset.filter(hour__gte=timezone.now() - timedelta(hours=24))
+        serializer_data = CapacityHourSerializer(queryset, many=True)
+        return Response(serializer_data.data)
 
 
 class DayViewSet(viewsets.ModelViewSet):
