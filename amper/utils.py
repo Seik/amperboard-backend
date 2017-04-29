@@ -38,10 +38,14 @@ def date_to_timestamp(d):
 
 
 def random_datetime(start, end):
-
     stime = date_to_timestamp(start)
     etime = date_to_timestamp(end)
 
     ptime = stime + random.random() * (etime - stime)
 
     return datetime.datetime.fromtimestamp(ptime)
+
+
+def time_round(dt):
+    a, b = divmod(round(dt.minute, -1), 60)
+    return '%i:%02i' % ((dt.hour + a) % 24, b)

@@ -26,7 +26,7 @@ class Report(models.Model):
 
 @python_2_unicode_compatible
 class CapacityHour(models.Model):
-    hour = models.DateTimeField()
+    hour = models.DateTimeField(unique=True)
     capacity = models.PositiveIntegerField()
 
     def __str__(self):

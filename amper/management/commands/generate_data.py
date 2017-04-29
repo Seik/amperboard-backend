@@ -3,7 +3,7 @@ from random import randrange
 from datetime import timedelta
 from django.utils import timezone
 
-from amper.utils import random_datetime
+from amper.utils import random_datetime, time_round
 
 from django.core.management.base import BaseCommand
 
@@ -22,6 +22,7 @@ class Command(BaseCommand):
                 item = Item.objects.all()[randrange(1, items_size)]
 
                 date = random_datetime(today - one_day, today + one_day)
+                date = time_round(date)
 
                 Report.objects.create(
                     item=item,
