@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 
+from django.utils import timezone
 from rest_framework import serializers
 from amper import utils
 from amper.models import Item, Report, CapacityHour, Day, UserConfig
+from amper.utils import time_round
 
 
 class ItemSerializer(utils.RelationModelSerializer):
@@ -29,9 +31,23 @@ class CapacityHourSerializer(utils.RelationModelSerializer):
 
 
 class DaySerializer(utils.RelationModelSerializer):
+    date = serializers.DateTimeField(required=False)
+    reports = ReportSerializer(many=True, required=False)
+
+    def update(self, instance, validated_data):
+        report_data = self.context["request"].data.get("report")
+        item_data = report_data["item"]
+
+        report_data["item"] = Item.objects.get(pk=int(item_data.get("id")))
+
+        report = Report.objects.create(**report_data)
+
+        instance.reports.add(report)
+        return instance
+
     class Meta:
         model = Day
-        fields = ("id", "reports", "capacity")
+        fields = ("id", "reports", "capacity", "date")
 
 
 class UserConfigSerializer(serializers.ModelSerializer):

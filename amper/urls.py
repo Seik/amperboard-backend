@@ -4,12 +4,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from amper.viewsets import ItemViewSet, RequestViewSet, UserConfigViewSet, DayViewSet, CapacityHourViewSet
+from amper.viewsets import ItemViewSet, ReportViewSet, UserConfigViewSet, DayViewSet, CapacityHourViewSet
 
 router = DefaultRouter()
 
 router.register(r'items', ItemViewSet, 'items')
-router.register(r'reports', RequestViewSet, 'reports')
+router.register(r'reports', ReportViewSet, 'reports')
 router.register(r'days', DayViewSet, 'days')
 router.register(r'user-config', UserConfigViewSet, 'user-config')
 router.register(r'capacity-hour', CapacityHourViewSet, 'capacity-hour')

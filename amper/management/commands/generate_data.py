@@ -45,11 +45,8 @@ class Command(BaseCommand):
                     print e
 
             reports = []
-            all_reports = Report.objects.all()
 
             for j in range(10):
-                reports.append(all_reports[randrange(1, all_reports.count())])
-
                 date = random_datetime(today - one_day, today + one_day)
 
                 day = Day.objects.create(

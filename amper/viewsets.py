@@ -18,7 +18,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
 
 
-class RequestViewSet(viewsets.ModelViewSet):
+class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
 
@@ -31,7 +31,7 @@ class RequestViewSet(viewsets.ModelViewSet):
         for report in reports:
             json_response.append({
                 "id": report.pk,
-                "item": report.item.name,
+                "item": ItemSerializer(report.item).data,
                 "consumption": report.item.consumption,
                 "time": report.start_time
             })
