@@ -23,7 +23,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 
         item = None
         if 5 < real_time_data.consumption < 14:
-            item = Item.objects.get(pk=15)
+            item = Item.objects.get(pk=8)
         elif 14 < real_time_data.consumption < 25:
             item = Item.objects.get(pk=5)
 
