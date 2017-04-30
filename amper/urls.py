@@ -4,7 +4,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from amper.viewsets import ItemViewSet, ReportViewSet, UserConfigViewSet, DayViewSet, CapacityHourViewSet
+from amper.viewsets import ItemViewSet, ReportViewSet, UserConfigViewSet, DayViewSet, CapacityHourViewSet, \
+    RealTimeDataViewSet
 
 router = DefaultRouter()
 
@@ -13,6 +14,7 @@ router.register(r'reports', ReportViewSet, 'reports')
 router.register(r'days', DayViewSet, 'days')
 router.register(r'user-config', UserConfigViewSet, 'user-config')
 router.register(r'capacity-hour', CapacityHourViewSet, 'capacity-hour')
+router.register(r'real-time-data', RealTimeDataViewSet, 'real-time-data')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

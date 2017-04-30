@@ -5,12 +5,12 @@ from datetime import timedelta
 
 from django.utils import timezone
 from rest_framework import viewsets
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
 
-from amper.models import Item, Report, UserConfig, Day, CapacityHour
+from amper.models import Item, Report, UserConfig, Day, CapacityHour, RealTimeData
 from amper.serializers import ItemSerializer, ReportSerializer, UserConfigSerializer, DaySerializer, \
-    CapacityHourSerializer
+    CapacityHourSerializer, RealTimeDataSerializer
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -78,6 +78,25 @@ class DayViewSet(viewsets.ModelViewSet):
         queryset = self.queryset.filter(date__gte=timezone.now() - timedelta(7))
         serializer_data = DaySerializer(queryset, many=True)
         return Response(serializer_data.data)
+
+
+class RealTimeDataViewSet(viewsets.ModelViewSet):
+    serializer_class = RealTimeDataSerializer
+    queryset = RealTimeData.objects.all()
+
+    @list_route()
+    def recent(self, request):
+        recent_data = RealTimeData.objects.all().order_by("date").first()
+
+        serializer_data = RealTimeDataSerializer(recent_data)
+        return Response(serializer_data.data)
+
+    @list_route()
+    def post_from_arduino(self, request):
+        consumption = request.query_params.get("consumption")
+        produced = request.query_params.get("produced")
+        RealTimeData.objects.create(consumption=consumption, produced=produced)
+        return Response(status=201)
 
 
 class UserConfigViewSet(viewsets.ModelViewSet):
