@@ -18,7 +18,7 @@ class Command(BaseCommand):
             one_day = timedelta(days=1)
             today = timezone.now()
 
-            for i in range(500):
+            for i in range(100):
                 item = Item.objects.all()[randrange(1, items_size)]
 
                 date = random_datetime(today - one_day, today + one_day)
