@@ -53,6 +53,8 @@ class DaySerializer(utils.RelationModelSerializer):
 
 
 class RealTimeDataSerializer(utils.RelationModelSerializer):
+    consumption = serializers.DecimalField(max_digits=8, decimal_places=2, allow_null=True, required=False)
+    produced = serializers.DecimalField(max_digits=8, decimal_places=2, allow_null=True, required=False)
 
     class Meta:
         model = RealTimeData

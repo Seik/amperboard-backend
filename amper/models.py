@@ -46,8 +46,8 @@ class Day(models.Model):
 @python_2_unicode_compatible
 class RealTimeData(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True, unique=True)
-    consumption = models.DecimalField(max_digits=8, decimal_places=2)
-    produced = models.DecimalField(max_digits=8, decimal_places=2)
+    consumption = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    produced = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return str(self.date)
