@@ -27,7 +27,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         elif 14 < real_time_data.consumption < 25:
             item = Item.objects.filter(name="Microwave").first()
 
-        serializer_data = ItemSerializer(item)
+        serializer_data = ItemSerializer({item}, many=True)
         return Response(serializer_data.data)
 
 
