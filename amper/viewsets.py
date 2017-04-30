@@ -17,6 +17,18 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
     queryset = Item.objects.all()
 
+    @list_route()
+    def on_items(self):
+        real_time_data = RealTimeData.objects.order_by("-pk")[0]
+
+        if 5 < real_time_data.consumption < 14:
+            item = Item.objects.filter(name="Hair Dryer").first()
+        elif 14 < real_time_data.consumption < 25:
+            item = Item.objects.filter(name="Microwave").first()
+
+        serializer_data = ItemSerializer(item)
+        return Response(serializer_data.data)
+
 
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
