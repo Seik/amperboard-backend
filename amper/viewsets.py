@@ -21,6 +21,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     def on_items(self, request):
         real_time_data = RealTimeData.objects.order_by("-pk")[0]
 
+        item = None
         if 5 < real_time_data.consumption < 14:
             item = Item.objects.filter(name="Hair Dryer").first()
         elif 14 < real_time_data.consumption < 25:
