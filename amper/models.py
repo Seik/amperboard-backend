@@ -43,6 +43,16 @@ class Day(models.Model):
         return str(self.date)
 
 
+@python_2_unicode_compatible
+class RealTimeData(models.Model):
+    date = models.DateTimeField(auto_now_add=True, blank=True, unique=True)
+    consumption = models.DecimalField(max_digits=8, decimal_places=2)
+    produced = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return str(self.date)
+
+
 class UserConfig(models.Model):
     latitude = models.IntegerField()
     azimut = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
