@@ -93,10 +93,11 @@ class RealTimeDataViewSet(viewsets.ModelViewSet):
 
     @list_route()
     def post_from_arduino(self, request):
-        data = RealTimeData.objects.all().first()
-
         consumption = request.query_params.get("consumption")
         produced = request.query_params.get("produced")
+
+        '''
+        data = RealTimeData.objects.all().first()
 
         if data is not None:
             data.consumption = consumption
@@ -106,6 +107,7 @@ class RealTimeDataViewSet(viewsets.ModelViewSet):
             data.save()
 
             return Response(status=201)
+        '''
 
         RealTimeData.objects.create(consumption=consumption, produced=produced)
         return Response(status=201)
