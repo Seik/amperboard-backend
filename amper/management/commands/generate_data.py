@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 Report.objects.create(
                     item=item,
                     duration=randrange(0, 100),
-                    consumption=randrange(100, 500),
+                    consumption=250 + randrange(0, 250),
                     start_time=date,
                 )
 
@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
                     CapacityHour.objects.create(
                         hour=date,
-                        capacity=randrange(0, 4000)
+                        capacity=2000 + randrange(0, 2000)
                     )
 
                 except Exception as e:
