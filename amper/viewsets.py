@@ -30,8 +30,13 @@ class ItemViewSet(viewsets.ModelViewSet):
         if item is None:
             return Response([])
 
-        serializer_data = ItemSerializer({item}, many=True)
-        return Response(serializer_data.data)
+        json_data = [{
+            "id": item.pk,
+            "name": item.name,
+            "consumption": real_time_data.consumption
+        }]
+
+        return Response(json_data)
 
 
 class ReportViewSet(viewsets.ModelViewSet):
