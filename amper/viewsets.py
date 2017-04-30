@@ -32,7 +32,7 @@ class ReportViewSet(viewsets.ModelViewSet):
             json_response.append({
                 "id": report.pk,
                 "item": ItemSerializer(report.item).data,
-                "consumption": report.item.consumption,
+                "consumption": report.consumption,
                 "time": report.start_time
             })
 
