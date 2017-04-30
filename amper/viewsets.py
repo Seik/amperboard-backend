@@ -22,12 +22,10 @@ class ItemViewSet(viewsets.ModelViewSet):
         real_time_data = RealTimeData.objects.order_by("-pk")[0]
 
         items = []
-        if 5 < real_time_data.consumption < 14:
-            items = Item.objects.filter(pk=8)
-        elif 14 < real_time_data.consumption < 25:
+        if 1 < real_time_data.consumption < 3:
+            items = Item.objects.filter(pk=23)
+        elif 14 < real_time_data.consumption < 21:
             items = Item.objects.filter(pk=5)
-        elif real_time_data.consumption > 23:
-            items = Item.objects.filter(pk__in=[5, 8])
 
         json_data = []
 
