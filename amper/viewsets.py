@@ -18,7 +18,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
 
     @list_route()
-    def on_items(self):
+    def on_items(self, request):
         real_time_data = RealTimeData.objects.order_by("-pk")[0]
 
         if 5 < real_time_data.consumption < 14:
