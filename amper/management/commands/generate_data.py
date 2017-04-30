@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from random import randrange
 
 from datetime import timedelta
@@ -38,7 +40,7 @@ class Command(BaseCommand):
 
                     CapacityHour.objects.create(
                         hour=date,
-                        capacity=2000 + randrange(0, 2000)
+                        capacity=1000 + randrange(0, 1000)
                     )
 
                 except Exception as e:

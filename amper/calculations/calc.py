@@ -1,11 +1,22 @@
 import math
 
-
-def calc_estimate(wind_speed, temp):
-    return 4.72 * wind_speed + 11504
+from amper.models import UserConfig
 
 
-def printinfo(month, day, latitude, azimuth, paneltilt, panelsurface, solartime, groundreflectance):
+def calc_estimate(wind_speed, temp, programada):
+    prevista = 4.72 * wind_speed + 11504 * temp - 91884.6
+    return programada / prevista * 0.9 * programada
+
+
+def calc_weather_list(weathers):
+    calcs = []
+    for weather in weathers:
+        user_config = UserConfig.objects.all().first()
+        calcs.append(alg(weather.date.month, weather.date.day, user_config.latitude, user_config.azimut,
+                         user_config.solar_panel_angle, 1, user_config.refleztance_angle))
+
+
+def alg(month, day, latitude, azimuth, paneltilt, solartime, groundreflectance):
     intermnday = getIntermnday(month)
     nday = getNday(month, intermnday)
 
@@ -51,9 +62,9 @@ def printinfo(month, day, latitude, azimuth, paneltilt, panelsurface, solartime,
             latitude * math.pi / 180) + math.sin(declination * math.pi / 180) * math.sin(latitude * math.pi / 180)))
     calcazimuth = (180 / math.pi) * math.copysign(1.0, solartime - 11.9999) * math.acos(0.999999999 * ((math.sin(
         calcaltitude * math.pi / 180) * math.sin(latitude * math.pi / 180) - math.sin(declination * math.pi / 180)) / (
-                                                                                                       math.cos(
-                                                                                                           calcaltitude * math.pi / 180) * math.cos(
-                                                                                                           latitude * math.pi / 180))))
+                                                                                                           math.cos(
+                                                                                                               calcaltitude * math.pi / 180) * math.cos(
+                                                                                                               latitude * math.pi / 180))))
     calcincidence = (180 / math.pi) * math.acos(
         math.sin(paneltilt * math.pi / 180) * math.cos(calcaltitude * math.pi / 180) * math.cos(
             (calcazimuth - azimuth) * math.pi / 180) + math.cos(paneltilt * math.pi / 180) * math.sin(
@@ -91,7 +102,7 @@ def printinfo(month, day, latitude, azimuth, paneltilt, panelsurface, solartime,
     idr = Ctot * idn * idvidh * idr
 
     ir = groundreflectance * idn * (math.sin(calcaltitude * math.pi / 180) + Ctot) * 0.5 * (
-    1 - math.cos(paneltilt * math.pi / 180))
+        1 - math.cos(paneltilt * math.pi / 180))
 
     radiation = (tauth * idp + 0.799 * (idr + ir)) * 3.1546
 

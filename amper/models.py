@@ -53,6 +53,21 @@ class RealTimeData(models.Model):
         return "{} {} {}".format(self.date, self.consumption, self.produced)
 
 
+@python_2_unicode_compatible
+class WeatherData(models.Model):
+    date = models.DateTimeField(unique=True)
+    city = models.CharField(max_length=50)
+    temp_max = models.DecimalField(max_digits=5, decimal_places=2)
+    temp_min = models.DecimalField(max_digits=5, decimal_places=2)
+    pressure = models.DecimalField(max_digits=6, decimal_places=2)
+    humidity = models.IntegerField()
+    wind_speed = models.DecimalField(max_digits=4, decimal_places=2)
+
+    def __str__(self):
+        return "{} {} {} {} {} {} {}".format(self.date, self.city, self.temp_max, self.temp_min, self.pressure,
+                                             self.humidity, self.wind_speed)
+
+
 class UserConfig(models.Model):
     latitude = models.IntegerField()
     azimut = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
