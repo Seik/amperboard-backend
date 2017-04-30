@@ -18,7 +18,7 @@ class Report(models.Model):
     item = models.ForeignKey("Item")
     start_time = models.DateTimeField()
     duration = models.PositiveIntegerField(help_text="in minutes")
-    consumption = models.PositiveIntegerField(blank=True, null=True)
+    consumption = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return "{} - {}".format(self.item, self.consumption)

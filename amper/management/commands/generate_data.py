@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 Report.objects.create(
                     item=item,
                     duration=randrange(0, 100),
-                    consumption=250 + randrange(0, 250),
+                    consumption=250 - randrange(0, 500),
                     start_time=date,
                 )
 
