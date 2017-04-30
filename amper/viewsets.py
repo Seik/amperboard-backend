@@ -22,7 +22,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         real_time_data = RealTimeData.objects.order_by("-pk")[0]
 
         items = []
-        if 1 < real_time_data.consumption < 3:
+        if 1 < real_time_data.consumption < 8:
             items = Item.objects.filter(pk=23)
         elif 14 < real_time_data.consumption < 21:
             items = Item.objects.filter(pk=5)
