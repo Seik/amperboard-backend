@@ -21,20 +21,22 @@ class ItemViewSet(viewsets.ModelViewSet):
     def on_items(self, request):
         real_time_data = RealTimeData.objects.order_by("-pk")[0]
 
-        item = None
+        items = []
         if 5 < real_time_data.consumption < 14:
-            item = Item.objects.get(pk=8)
+            items = Item.objects.filter(pk=8)
         elif 14 < real_time_data.consumption < 25:
-            item = Item.objects.get(pk=5)
+            items = Item.objects.filter(pk=5)
+        elif real_time_data.consumption > 25:
+            items = Item.objects.filter(pk__in=[5, 8])
 
-        if item is None:
-            return Response([])
+        json_data = []
 
-        json_data = [{
-            "id": item.pk,
-            "name": item.name,
-            "consumption": real_time_data.consumption
-        }]
+        for item in items:
+            json_data.append({
+                "id": item.pk,
+                "name": item.name,
+                "consumption": real_time_data.consumption
+            })
 
         return Response(json_data)
 
