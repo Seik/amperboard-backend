@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -60,7 +58,6 @@ class WeatherData(models.Model):
     temp_max = models.DecimalField(max_digits=5, decimal_places=2)
     temp_min = models.DecimalField(max_digits=5, decimal_places=2)
     pressure = models.DecimalField(max_digits=6, decimal_places=2)
-    humidity = models.IntegerField()
     wind_speed = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):

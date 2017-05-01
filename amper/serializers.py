@@ -1,12 +1,7 @@
-from __future__ import unicode_literals
-
-from django.utils import timezone
 from rest_framework import serializers
-from rest_framework.decorators import detail_route, list_route
 
 from amper import utils
 from amper.models import Item, Report, CapacityHour, Day, UserConfig, RealTimeData
-from amper.utils import time_round
 
 
 class ItemSerializer(utils.RelationModelSerializer):

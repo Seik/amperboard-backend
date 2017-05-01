@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from random import randrange
 
 from datetime import timedelta
@@ -44,7 +42,7 @@ class Command(BaseCommand):
                     )
 
                 except Exception as e:
-                    print e
+                    print(e)
 
             reports = []
 
@@ -58,7 +56,5 @@ class Command(BaseCommand):
 
                 day.reports = reports
                 day.save()
-
-                print date
         except Exception as e:
-            print e
+            print(e)
