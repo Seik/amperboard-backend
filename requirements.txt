@@ -8,6 +8,7 @@ dj-database-url==0.4.1
 Django==1.10.4
 django-cors-headers==2.0.2
 django-crontab==0.7.1
+django-crontab==0.7.1
 django-filter==1.0.2
 django-import-export==0.5.1
 django-suit==2.0a1
