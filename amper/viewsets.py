@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import time
 from datetime import timedelta
 
@@ -16,6 +14,27 @@ from amper.serializers import ItemSerializer, ReportSerializer, UserConfigSerial
 class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
     queryset = Item.objects.all()
+
+    @list_route()
+    def on_items(self, request):
+        real_time_data = RealTimeData.objects.order_by("-pk")[0]
+
+        items = []
+        if 1 < real_time_data.consumption < 8:
+            items = Item.objects.filter(pk=23)
+        elif 14 < real_time_data.consumption < 21:
+            items = Item.objects.filter(pk=5)
+
+        json_data = []
+
+        for item in items:
+            json_data.append({
+                "id": item.pk,
+                "name": item.name,
+                "consumption": real_time_data.consumption
+            })
+
+        return Response(json_data)
 
 
 class ReportViewSet(viewsets.ModelViewSet):

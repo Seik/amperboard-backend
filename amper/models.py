@@ -1,10 +1,6 @@
-from __future__ import unicode_literals
-
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 
-@python_2_unicode_compatible
 class Item(models.Model):
     name = models.CharField(max_length=50)
     consumption = models.PositiveIntegerField()
@@ -13,7 +9,6 @@ class Item(models.Model):
         return "{} - {}".format(self.name, self.consumption)
 
 
-@python_2_unicode_compatible
 class Report(models.Model):
     item = models.ForeignKey("Item")
     start_time = models.DateTimeField()
@@ -24,7 +19,6 @@ class Report(models.Model):
         return "{} - {}".format(self.item, self.consumption)
 
 
-@python_2_unicode_compatible
 class CapacityHour(models.Model):
     hour = models.DateTimeField(unique=True)
     capacity = models.PositiveIntegerField()
@@ -33,7 +27,6 @@ class CapacityHour(models.Model):
         return "{} - {}".format(self.hour, self.capacity)
 
 
-@python_2_unicode_compatible
 class Day(models.Model):
     date = models.DateField(unique=True)
     reports = models.ManyToManyField("Report", blank=True)
@@ -43,7 +36,6 @@ class Day(models.Model):
         return str(self.date)
 
 
-@python_2_unicode_compatible
 class RealTimeData(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True, unique=True)
     consumption = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
@@ -53,14 +45,12 @@ class RealTimeData(models.Model):
         return "{} {} {}".format(self.date, self.consumption, self.produced)
 
 
-@python_2_unicode_compatible
 class WeatherData(models.Model):
     date = models.DateTimeField(unique=True)
     city = models.CharField(max_length=50)
     temp_max = models.DecimalField(max_digits=5, decimal_places=2)
     temp_min = models.DecimalField(max_digits=5, decimal_places=2)
     pressure = models.DecimalField(max_digits=6, decimal_places=2)
-    humidity = models.IntegerField()
     wind_speed = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):

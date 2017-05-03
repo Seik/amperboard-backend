@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import os
 import dj_database_url
 
@@ -19,6 +17,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
